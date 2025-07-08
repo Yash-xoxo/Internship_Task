@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EmailJS Example</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+    })();
+  </script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #EEE;
+      font-family: Arial, sans-serif;
+      padding: 50px;
+      text-align: center;
+    }
+    input, textarea {
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00ADB5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Send Email with JS</h1>
+  <form id="contactForm">
+    <input type="text" name="from_name" placeholder="Your Name" required><br>
+    <input type="email" name="reply_to" placeholder="Your Email" required><br>
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea><br>
+    <button type="submit">Send Email</button>
+  </form>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(function() {
+          alert('Email sent successfully!');
+        }, function(error) {
+          console.error('Failed to send email:', error);
+          alert('Failed to send email. Check console for details.');
+        });
+    });
+  </script>
+
+</body>
+</html>

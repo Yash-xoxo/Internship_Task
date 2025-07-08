@@ -1,0 +1,9 @@
+docker build -t firefox-gui .
+
+
+xhost +local:docker  # Allow Docker containers to access host X server
+
+docker run -it \
+  --env DISPLAY=$DISPLAY \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix \
+  firefox-gui

@@ -1,0 +1,19 @@
+docker build -t vlc-docker .
+
+sudo apt install vlc
+
+#RUN DOCKER 
+
+xhost +local:docker
+
+sudo docker run -it \
+  --rm \
+  --name vlc-container \
+  --device /dev/snd \
+  -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /dev/snd:/dev/snd \
+  -v /run/user/$(id -u)/pulse:/run/user/$(id -u)/pulse \
+  -e PULSE_SERVER=unix:/run/user/$(id -u)/pulse/native \
+  --group-add audio \
+  vlc-docker

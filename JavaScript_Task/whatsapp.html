@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send WhatsApp Message</title>
+  <style>
+    body {
+      background: #121212;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    input {
+      width: 300px;
+    }
+    button {
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📲 Send WhatsApp Message</h1>
+
+  <input type="text" id="phone" placeholder="Phone number (with country code)" />
+  <br>
+  <input type="text" id="message" placeholder="Type your message" />
+  <br>
+  <button onclick="sendWhatsApp()">Send Message</button>
+
+  <script>
+    function sendWhatsApp() {
+      const phone = document.getElementById("phone").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!phone || !message) {
+        alert("Please enter both phone number and message.");
+        return;
+      }
+
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+docker build -t my-apache-server .
+
+
+docker run -dit --name apache-container -p 6969:80 my-apache-server

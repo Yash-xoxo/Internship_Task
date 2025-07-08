@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Webcam Access</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    video {
+      width: 640px;
+      height: 480px;
+      border: 4px solid #00ADB5;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ADB5;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #00ADB5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Access Your Webcam</h1>
+  <video id="webcam" autoplay playsinline></video>
+  <br>
+  <button onclick="startWebcam()">Start Webcam</button>
+
+  <script>
+    const video = document.getElementById('webcam');
+
+    function startWebcam() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+          .then((stream) => {
+            video.srcObject = stream;
+          })
+          .catch((err) => {
+            alert("Error accessing webcam: " + err.message);
+            console.error(err);
+          });
+      } else {
+        alert("getUserMedia not supported in this browser.");
+      }
+    }
+  </script>
+
+</body>
+</html>

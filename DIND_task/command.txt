@@ -1,0 +1,26 @@
+sudo docker run -it --privileged --name ubuntu-dind ubuntu:20.04
+
+#inside first container 
+
+apt update
+apt install -y curl gnupg lsb-release ca-certificates apt-transport-https
+
+# Add Docker’s official GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+# Add Docker’s repo
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) stable"
+
+apt update
+apt install -y docker.io
+
+
+dockerd &
+
+docker pull centos:7
+
+docker info
+
+cat /etc/os-release

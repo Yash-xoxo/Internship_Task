@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Webcam Capture and Email</title>
+  <style>
+    body {
+      background: #121212;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    video, canvas {
+      display: block;
+      margin: 20px auto;
+      border: 3px solid #00ADB5;
+      border-radius: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00ADB5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📸 Capture Image & Send Email</h1>
+  <video id="video" width="320" height="240" autoplay></video>
+  <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+  <button id="sendBtn">📤 Capture & Send Email</button>
+
+  <!-- ✅ Load Latest EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    window.onload = function () {
+      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const context = canvas.getContext("2d");
+      const sendBtn = document.getElementById("sendBtn");
+
+      // Start webcam stream
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+        })
+        .catch((err) => {
+          alert("❌ Cannot access webcam: " + err.message);
+        });
+
+      sendBtn.addEventListener("click", () => {
+        // Capture image from video
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = canvas.toDataURL("image/jpeg", 0.6); // compressed image
+
+        // Send via EmailJS
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+          image_data: imageData
+        })
+        .then(() => {
+          alert("✅ Email sent with image!");
+        })
+        .catch((error) => {
+          console.error("Email send error:", error);
+          alert("❌ Failed to send: " + (error.text || error.message));
+        });
+      });
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Capture & Send Webcam Video</title>
+  <style>
+    body {
+      background: #121212;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    video {
+      display: block;
+      margin: 20px auto;
+      border: 3px solid #00ADB5;
+      border-radius: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00ADB5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎥 Record & Send Video</h1>
+  <video id="preview" width="320" height="240" autoplay muted></video>
+  <button onclick="recordVideo()">🎬 Record 5s Video & Send</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual EmailJS public key
+
+    const preview = document.getElementById("preview");
+    let stream;
+
+    // Start webcam
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(s => {
+        stream = s;
+        preview.srcObject = stream;
+      })
+      .catch(err => alert("❌ Webcam error: " + err.message));
+
+    async function recordVideo() {
+      const recorder = new MediaRecorder(stream);
+      let chunks = [];
+
+      recorder.ondataavailable = e => chunks.push(e.data);
+      recorder.start();
+
+      console.log("Recording...");
+
+      await new Promise(res => setTimeout(res, 5000)); // record for 5s
+      recorder.stop();
+
+      recorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const file = new File([blob], "recording.webm");
+
+        // Upload to file.io (expires after 1 download or 1 day)
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+          const res = await fetch("https://file.io", {
+            method: "POST",
+            body: formData
+          });
+          const result = await res.json();
+
+          if (result.success) {
+            const videoUrl = result.link;
+            console.log("Uploaded:", videoUrl);
+
+            // Send email with video URL
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+              video_url: videoUrl,
+              name: "Yash",
+              time: new Date().toLocaleString(),
+              message: "Here is the recorded webcam video."
+            }).then(() => {
+              alert("✅ Video sent via email!");
+            }).catch(err => {
+              console.error(err);
+              alert("❌ Email send failed.");
+            });
+          } else {
+            alert("❌ Upload failed.");
+          }
+        } catch (e) {
+          console.error("Upload error:", e);
+          alert("❌ Upload error.");
+        }
+      };
+    }
+  </script>
+
+</body>
+</html>
