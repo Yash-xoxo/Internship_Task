@@ -1,0 +1,14 @@
+apt update
+apt install -y software-properties-common
+apt remove -y firefox
+add-apt-repository ppa:mozillateam/ppa
+
+# Set priority so apt doesn't reinstall snap version
+echo '
+Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+' > /etc/apt/preferences.d/mozilla-firefox
+
+apt update
+apt install -y firefox
