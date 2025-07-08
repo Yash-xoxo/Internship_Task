@@ -1,4 +1,4 @@
- ### **Task 2: Reverse-Engineering GUI Programs**
+### **Task 2: Reverse-Engineering GUI Programs**
 
 _Ever wondered what commands your GUI apps run?_
 
@@ -8,7 +8,7 @@ _Ever wondered what commands your GUI apps run?_
     
     bash
     
-    strace -f -e execve gnome-disks 2>&1 | grep udisksctl  
+    ```strace -f -e execve gnome-disks 2>&1 | grep udisksctl```
     
 
 _Discovery_: Gnome Disks silently runs `udisksctl` commands!
