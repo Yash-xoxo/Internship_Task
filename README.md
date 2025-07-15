@@ -84,15 +84,11 @@
 
 ## 🔍 Custom Search Engine Project
 
-### Domain-Specific Search Engine
-- **Description**: Search engine focused on technical documentation with relevance ranking and keyword highlighting.
-- **Features**:
-  - Web crawler for target domains
-  - TF-IDF/BM25 ranking algorithms
-  - Dockerized deployment
-  - Search analytics dashboard
-- **Technical Stack**: Python, Elasticsearch, React frontend, Docker.
-- **Video Demo**: `[Paste video link here]`
+### Domain-Specific Search Page
+- **Description**: Search page intrageted to a zen browzer because its cool.
+- **Video Demo**: 
+
+[Search-page](https://github.com/user-attachments/assets/36d1906a-f4e6-46b3-815e-b54e06115e1c)
 
 ---
 
