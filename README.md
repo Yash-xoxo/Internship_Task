@@ -5,7 +5,7 @@
 ### 1. Set up Apache webserver in Docker
 - **Description**: Create a Docker container running Apache, configure virtual hosts, and serve custom web content.
 - **Technical Skills**: Dockerfile creation, Apache configuration, port mapping.
-- **Video Demo**:
+**Video Demo**
 
 [apache](https://github.com/user-attachments/assets/606d8b55-5eb6-4eb6-b635-ee135951b580)
 
@@ -15,7 +15,9 @@
 ### 2. Docker-in-Docker (DIND) Setup
 - **Description**: Configure a Docker container that can run Docker Engine internally for CI/CD pipelines.
 - **Technical Skills**: Privileged containers, volume mounting, Docker socket passthrough.
-- **Video Demo**: [Docker-in-Docker](https://github.com/user-attachments/assets/3f11982b-b705-40bd-bb46-e1b70f258d50)
+**Video Demo**
+
+[Docker-in-Docker](https://github.com/user-attachments/assets/3f11982b-b705-40bd-bb46-e1b70f258d50)
 
 ---
 
