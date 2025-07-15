@@ -24,7 +24,9 @@
 ### 3. GUI Applications in Docker
 - **Description**: Install and run Firefox/VLC with full GUI support using X11 forwarding.
 - **Technical Skills**: X11 server configuration, DISPLAY environment variables, volume permissions.
-- **Video Demo**: `[Paste video link here]`
+**Video Demo**
+
+[Gui](https://github.com/user-attachments/assets/bec41ecb-f04f-48ed-a7a1-dbb82aa6b380)
 
 ---
 
